@@ -58,3 +58,99 @@ checkValue(0);
 checkValue('');
 checkValue([]);
 checkValue({});
+
+//Closure and currying
+ 
+function createGreeter(greeting) {
+  return function(name) {
+      return greeting + ', ' + name;
+  };
+}
+ 
+const englishGreeter = createGreeter('Hello');
+const spanishGreeter = createGreeter('Hola');
+const frenchGreeter = createGreeter('Bonjour');
+ 
+console.log(englishGreeter('John')); // Output: Hello, John!
+console.log(spanishGreeter('Maria')); // Output: Hola, Maria!
+console.log(frenchGreeter('Pierre')); // Output: Bonjour, Pierre!
+ 
+ 
+function add(x, y) {
+  return x + y;
+}
+ 
+function curriedAdd(x) {
+  x=10;
+  return function(y) {
+      return x + y;
+  };
+}
+ 
+const add5 = curriedAdd(5);
+console.log(add5);
+const output = console.log('Swetha' ,curriedAdd(5)(6)); // 11
+ 
+console.log('Add 5 + 3',add5(3)); // Output: 8
+console.log('Add 5 + 7',add5(7)); // Output: 12
+ 
+ 
+function sum(a) {
+  return (b, c) => {
+      return a * b * c
+  }
+}
+ 
+//Method one
+let x = sum(10);
+console.log(x(3,12));
+console.log(x(20,12));
+console.log(x(20,13));
+ 
+//Method two
+console.log(sum(10)(3,12));
+console.log(sum(10)(20,12));
+console.log(sum(10)(20,13));
+ 
+ 
+//Async await Promise
+ 
+function fetchUserData() {
+  return new Promise(resolve => {
+      setTimeout(() => {
+          resolve({ id: 1, name: 'John', username: 'john_doe' });
+      }, 1000);
+  });
+}
+ 
+function fetchUserPosts(userId) {
+  return new Promise(resolve => {
+      setTimeout(() => {
+          if (userId === 1) {
+              resolve([
+                  { id: 1, title: 'First post', body: 'This is the first post.' },
+                  { id: 2, title: 'Second post', body: 'This is the second post.' }
+              ]);
+          } else {
+              reject('User ID not found');
+          }
+      }, 1500);
+  });
+}
+ 
+async function displayUserDataAndPosts() {
+  try {
+      console.log('Fetching user data...');
+      const userData = await fetchUserData();
+ 
+      console.log('Fetching user posts...');
+      const userPosts = await fetchUserPosts(userData.id);
+ 
+      console.log('User data:', userData);
+      console.log('User posts:', userPosts);
+  } catch (error) {
+      console.error('Error:', error);
+  }
+}
+ 
+displayUserDataAndPosts();
