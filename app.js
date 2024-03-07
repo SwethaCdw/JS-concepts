@@ -154,3 +154,96 @@ async function displayUserDataAndPosts() {
 }
  
 displayUserDataAndPosts();
+
+//Prototype
+function Car(make, model, year) {
+  this.make = make;
+  this.model = model;
+  this.year = year;
+}
+
+Car.prototype.calculateSpeed = function(distance, time) {
+  return distance / time;
+};
+
+const car1 = new Car('Toyota', 'Camry', 2018);
+const car2 = new Car('Honda', 'Civic', 2020);
+
+const speed1 = car1.calculateSpeed(100, 2);
+console.log(`The speed of ${car1.make} ${car1.model} is ${speed1} mph.`);
+
+const speed2 = car2.calculateSpeed(150, 3);
+console.log(`The speed of ${car2.make} ${car2.model} is ${speed2} mph.`);
+
+// Bank example
+
+function Account(owner, initialBalance) {
+  this.owner = owner;
+  this.balance = initialBalance;
+}
+
+Account.prototype.deposit = function(amount) {
+  this.balance += amount;
+  return `Deposited ${amount} dollars. New balance: ${this.balance} dollars.`;
+};
+
+Account.prototype.withdraw = function(amount) {
+  if (amount > this.balance) {
+      return `Insufficient funds. Current balance: ${this.balance} dollars.`;
+  } else {
+      this.balance -= amount;
+      return `Withdrawn ${amount} dollars. New balance: ${this.balance} dollars.`;
+  }
+};
+
+const account1 = new Account('John Doe', 1000);
+const account2 = new Account('Jane Smith', 2000);
+
+console.log(account1.deposit(500)); 
+console.log(account1.withdraw(200)); 
+console.log(account1.withdraw(1500));
+console.log(account2.deposit(1000)); 
+
+//Fetch API
+
+function fetchDataFromAPI1(callback) {
+  setTimeout(() => {
+      const data = ['Pooj', 'Riya', 'Sano'];
+      callback(null, data);
+  }, 2000);
+}
+
+function fetchDataFromAPI2(callback) {
+  setTimeout(() => {
+      const data = ['Apple', 'Banana', 'Orange'];
+      callback(null, data);
+  }, 3000);
+}
+
+function processDataAndDisplay(data1, data2, additionalData) {
+  console.log('Data from API 1:', data1);
+  console.log('Data from API 2:', data2);
+  console.log('Additional Data:', additionalData);
+
+  const combinedData = data1.concat(data2).concat(additionalData).join(', ');
+
+  console.log('Combined data:', combinedData);
+}
+
+fetchDataFromAPI1((error1, data1) => {
+  if (error1) {
+      console.error('Error fetching data from API 1:', error1);
+      return;
+  }
+
+  fetchDataFromAPI2((error2, data2) => {
+      if (error2) {
+          console.error('Error fetching data from API 2:', error2);
+          return;
+      }
+
+      const additionalData = ['Swetha', 'Shyamala', 'Prakashan'];
+
+      processDataAndDisplay(data1, data2, additionalData);
+  });
+});
