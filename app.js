@@ -247,3 +247,105 @@ fetchDataFromAPI1((error1, data1) => {
       processDataAndDisplay(data1, data2, additionalData);
   });
 });
+
+//Generator
+
+function* generateSequence() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+const generator = generateSequence();
+
+console.log(generator.next().value); // Output: 1
+console.log(generator.next().value); // Output: 2
+console.log(generator.next().value); // Output: 3
+console.log(generator.next().value); // Output: undefined
+
+
+//Fibonacci generator
+function* fibonacciGenerator() {
+  let prev = 0;
+  let curr = 1;
+  while (true) {
+      yield curr;
+      [prev, curr] = [curr, prev + curr];
+  }
+}
+
+function printFibonacci() {
+  const generator = fibonacciGenerator();
+
+  setInterval(() => {
+      const fibonacciNumber = generator.next().value;
+      console.log(fibonacciNumber);
+  }, 1000); 
+}
+
+printFibonacci();
+
+var show = (a, b=200) => {
+  console.log(a + " " + b);
+}
+show(100);
+
+var show = (a, ...args) => {  
+  console.log(a + " " + args);  
+}  
+show(100,200,300,400,500,600,700,800);  
+
+
+//
+
+class Pen {
+  constructor(name, color, price){
+      this.name = name;
+      this.color = color; 
+      this.price = price;
+  }
+  
+  showPrice(){
+      console.log(`Price of ${this.name} is ${this.price}`);
+  }
+}
+
+const pen1 = new Pen("Marker", "Blue", "$3");
+pen1.showPrice();
+
+
+//
+
+const arr1 = [1, 2, 3];
+const arr2 = [4, 5, 6];
+const combinedArray = [...arr1, ...arr2];
+
+console.log(combinedArray);
+
+//
+function sum(...args) {
+  return args.reduce((acc, val) => acc + val, 0);
+}
+
+console.log(sum(1, 2, 3, 4, 5));
+
+
+//
+
+function filterAndSum(threshold, ...numbers) {
+  const filteredNumbers = numbers.filter(num => num <= threshold);
+
+  const sum = filteredNumbers.reduce((acc, num) => acc + num, 0);
+
+  return sum;
+}
+
+const originalNumbers = [10, 20, 30, 40, 50];
+
+const additionalNumbers = [25, 35, 45, 55]; 
+
+const threshold = 40;
+
+const totalSum = filterAndSum(threshold, ...originalNumbers, ...additionalNumbers);
+
+console.log(totalSum);
